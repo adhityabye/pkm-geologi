@@ -10,146 +10,78 @@
       type="module"
       src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
     ></script>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="index.css">
 
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-      }
-      #viewer-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        position: relative;
-      }
-      model-viewer {
-        width: 100vw;
-        height: 100vh;
-      }
-      #cards-container {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .card {
-        padding: 10px;
-        background-color: #ffffff;
-        border-radius: 5px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: background-color 0.3s;
-        max-width: 200px; /* Limit width to prevent overflow */
-        word-wrap: break-word; /* Ensure long words wrap */
-        overflow: hidden;
-      }
-      .card:hover {
-        background-color: #e0e0e0;
-      }
-      .card h3 {
-        margin: 0;
-        font-size: 16px;
-      }
-      #info-box {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        padding: 15px;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        border-radius: 5px;
-        display: none;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        width: 300px;
-        text-align: center;
-        word-wrap: break-word; /* Ensure long words wrap */
-        overflow: hidden; /* Prevent overflow */
-      }
-      .info-box-variation-1 {
-        top: 10%;
-        left: 10%;
-        transform: translate(0, 0);
-        background-color: rgba(0, 128, 128, 0.7);
-        font-size: 14px;
-      }
-      .info-box-variation-2 {
-        bottom: 10%;
-        right: 10%;
-        transform: translate(0, 0);
-        background-color: rgba(128, 0, 128, 0.7);
-        font-size: 16px;
-      }
-      .info-box-variation-3 {
-        bottom: 50%;
-        left: 20%;
-        transform: translate(0, 50%);
-        background-color: rgba(128, 128, 0, 0.7);
-        font-size: 18px;
-      }
-    </style>
   </head>
 
   <body>
-    <div id="viewer-container">
-      <!-- Model Viewer -->
-      <model-viewer
-        id="stoneViewer"
-        src="assets/Granit_Orbicular.glb"
-        camera-controls
-        auto-rotate
-        ar
-        shadow-intensity="1"
-        environment-image="neutral"
-        alt="3D model of Granit Orbicular"
-        field-of-view="45deg"
-        camera-orbit="0deg 75deg 20m"
-        min-camera-orbit="auto auto 40m"
-        max-camera-orbit="auto auto 50m"
-        style="width: 100vw; height: 100vh"
-      ></model-viewer>
+    <div id="container">
 
-      <!-- Cards Container -->
-      <div id="cards-container">
-        <div
-          class="card"
-          data-title="Smooth Texture"
-          data-description="This part of the stone has a smooth surface texture."
-          data-orbit="90deg 80deg 20m"
-          data-box-class="info-box-variation-1"
-        >
-          <h3>Smooth Texture</h3>
-        </div>
-        <div
-          class="card"
-          data-title="Rough Texture"
-          data-description="This part of the stone has a rough surface texture."
-          data-orbit="180deg 60deg 20m"
-          data-box-class="info-box-variation-2"
-        >
-          <h3>Rough Texture</h3>
-        </div>
-        <!-- <div
-          class="card"
-          data-title="Orbicular Shape"
-          data-description="This region exhibits an orbicular shape."
-          data-orbit="270deg 60deg 20m"
-          data-box-class="info-box-variation-3"
-        >
-          <h3>Orbicular Shape</h3>
+      <div id="viewer-container">
+        <!-- Model Viewer -->
+        <model-viewer
+          id="stoneViewer"
+          src="assets/Granit_Orbicular.glb"
+          camera-controls
+          auto-rotate
+          ar
+          shadow-intensity="1"
+          environment-image="neutral"
+          alt="3D model of Granit Orbicular"
+          field-of-view="45deg"
+          camera-orbit="0deg 75deg 50m"
+          min-camera-orbit="auto auto 40m"
+          max-camera-orbit="auto auto 50m"
+          style="width: 100vw; height: 100vh"
+        ></model-viewer>
+
+        <!-- Cards Container -->
+        <!-- <div id="cards-container">
+          <div
+            class="card"
+            data-title="Smooth Texture"
+            data-description="This part of the stone has a smooth surface texture."
+            data-orbit="90deg 80deg 20m"
+            data-box-class="info-box-variation-1"
+          >
+            <h3>Smooth Texture</h3>
+          </div>
+          <div
+            class="card"
+            data-title="Rough Texture"
+            data-description="This part of the stone has a rough surface texture."
+            data-orbit="180deg 60deg 20m"
+            data-box-class="info-box-variation-2"
+          >
+            <h3>Rough Texture</h3>
+          </div>
         </div> -->
+
       </div>
+
+      <div id="info-container">
+
+        <div class="header-container">
+          <h1>Granit Orbicular</h1>
+          <hr>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus accusantium facilis minima alias, accusamus iure cum odio ipsam tempore molestias eaque! Molestiae temporibus nulla voluptatem voluptatum ad nihil aliquid. Velit!</p>
+        </div>
+        <div class="feature-container">
+          <button>Orbikulasi</button>
+          <button>Sktruktur Kristal</button>
+          <button>Kombinasi Warna</button>
+          <button>Lapisan Konsentris</button>
+          <button>Perbedaan Kilap</button>
+        </div>
+        <div class="description-container">
+          <h2>Lapisan Konsentris</h1>
+          <p>Setiap orbikula biasanya dikelilingi oleh lapisan-lapisan mineral yang terpisah dengan warna atau tekstur berbeda. Lapisan-lapisan ini sangat jelas terlihat dengan mata telanjang dan memberikan batuan penampilan bertekstur.</p>
+        </div>
+      </div>
+
+      <!--  -->
+
     </div>
 
     <!-- Info Box to show card details -->
