@@ -58,14 +58,23 @@
           </div>
         </div> -->
 
+        <div class="change-stone">
+          <div id="next-stone">
+            <img src="assets/curved-next-arrow.svg" alt="" style="transform: scaleX(-1);">
+          </div>
+          <div id="prev-stone">
+            <img src="assets/curved-next-arrow.svg" alt="">
+          </div>
+        </div>
+
       </div>
 
       <div id="info-container">
 
         <div class="header-container">
-          <h1>Granit Orbicular</h1>
+          <h1 id="stone-title">Granit Orbicular</h1>
           <hr>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus accusantium facilis minima alias, accusamus iure cum odio ipsam tempore molestias eaque! Molestiae temporibus nulla voluptatem voluptatum ad nihil aliquid. Velit!</p>
+          <p id="stone-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus accusantium facilis minima alias, accusamus iure cum odio ipsam tempore molestias eaque! Molestiae temporibus nulla voluptatem voluptatum ad nihil aliquid. Velit!</p>
         </div>
         <div class="feature-container">
           <button>Orbikulasi</button>
@@ -75,8 +84,8 @@
           <button>Perbedaan Kilap</button>
         </div>
         <div class="description-container">
-          <h2>Lapisan Konsentris</h1>
-          <p>Setiap orbikula biasanya dikelilingi oleh lapisan-lapisan mineral yang terpisah dengan warna atau tekstur berbeda. Lapisan-lapisan ini sangat jelas terlihat dengan mata telanjang dan memberikan batuan penampilan bertekstur.</p>
+          <h2 id="feature-title">Lapisan Konsentris</h1>
+          <p id="feature-description">Setiap orbikula biasanya dikelilingi oleh lapisan-lapisan mineral yang terpisah dengan warna atau tekstur berbeda. Lapisan-lapisan ini sangat jelas terlihat dengan mata telanjang dan memberikan batuan penampilan bertekstur.</p>
         </div>
       </div>
 
@@ -84,11 +93,9 @@
 
     </div>
 
-    <!-- Info Box to show card details -->
-    <div id="info-box"></div>
-
+    <script src="index.js"></script>
     <script>
-      const viewer = document.getElementById("stoneViewer");
+      // const viewer = document.getElementById("stoneViewer");
       const infoBox = document.getElementById("info-box");
 
       // Add click event listeners to cards to show information and rotate the model
