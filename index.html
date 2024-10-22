@@ -1,142 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3D Stone Viewer with Full-Screen Model</title>
 
     <!-- Include Google model-viewer library -->
-    <script
-      type="module"
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-    ></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="index.css">
 
-  </head>
+</head>
 
-  <body>
+<body>
+    <div id="overlay" style="position: absolute; top: 0; left: 0; color: red;">
+        <!-- penunjuk batu -->
+    </div>
     <div id="container">
 
-      <div id="viewer-container">
-        <!-- Model Viewer -->
-        <model-viewer
-          id="stoneViewer"
-          src="assets/Granit_Orbicular.glb"
-          camera-controls
-          auto-rotate
-          ar
-          shadow-intensity="1"
-          environment-image="neutral"
-          alt="3D model of Granit Orbicular"
-          field-of-view="45deg"
-          camera-orbit="0deg 75deg 50m"
-          min-camera-orbit="auto auto 40m"
-          max-camera-orbit="auto auto 50m"
-          style="width: 100vw; height: 100vh"
-        ></model-viewer>
+        <div id="viewer-container">
+            <!-- Model Viewer -->
+            <model-viewer id="stoneViewer" src="assets/Granit_Orbicular.glb" camera-controls auto-rotate ar
+                shadow-intensity="1" environment-image="neutral" alt="3D model of Granit Orbicular"
+                field-of-view="45deg" camera-orbit="0deg 75deg 50m" min-camera-orbit="auto auto 40m"
+                max-camera-orbit="auto auto 50m" style="width: 100vw; height: 100vh">
+            </model-viewer>
 
-        <!-- Cards Container -->
-        <!-- <div id="cards-container">
-          <div
-            class="card"
-            data-title="Smooth Texture"
-            data-description="This part of the stone has a smooth surface texture."
-            data-orbit="90deg 80deg 20m"
-            data-box-class="info-box-variation-1"
-          >
-            <h3>Smooth Texture</h3>
-          </div>
-          <div
-            class="card"
-            data-title="Rough Texture"
-            data-description="This part of the stone has a rough surface texture."
-            data-orbit="180deg 60deg 20m"
-            data-box-class="info-box-variation-2"
-          >
-            <h3>Rough Texture</h3>
-          </div>
-        </div> -->
+            <div class="change-stone">
+                <div id="next-stone">
+                    <img src="assets/curved-next-arrow.svg" alt="" style="transform: scaleX(-1);">
+                </div>
+                <div id="prev-stone">
+                    <img src="assets/curved-next-arrow.svg" alt="">
+                </div>
+            </div>
 
-        <div class="change-stone">
-          <div id="next-stone">
-            <img src="assets/curved-next-arrow.svg" alt="" style="transform: scaleX(-1);">
-          </div>
-          <div id="prev-stone">
-            <img src="assets/curved-next-arrow.svg" alt="">
-          </div>
         </div>
 
-      </div>
+        <div id="info-container">
 
-      <div id="info-container">
-
-        <div class="header-container">
-          <h1 id="stone-title">Granit Orbicular</h1>
-          <hr>
-          <p id="stone-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus accusantium facilis minima alias, accusamus iure cum odio ipsam tempore molestias eaque! Molestiae temporibus nulla voluptatem voluptatum ad nihil aliquid. Velit!</p>
+            <div class="header-container">
+                <h1 id="stone-title">Granit Orbicular</h1>
+                <hr>
+                <p id="stone-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+                    accusantium facilis minima alias, accusamus iure cum odio ipsam tempore molestias eaque! Molestiae
+                    temporibus nulla voluptatem voluptatum ad nihil aliquid. Velit!</p>
+            </div>
+            <div class="feature-container">
+                <button>Orbikulasi</button>
+                <button>Sktruktur Kristal</button>
+                <button>Kombinasi Warna</button>
+                <button>Lapisan Konsentris</button>
+                <button>Perbedaan Kilap</button>
+            </div>
+            <div class="description-container">
+                <h2 id="feature-title">Lapisan Konsentris</h1>
+                    <p id="feature-description">Setiap orbikula biasanya dikelilingi oleh lapisan-lapisan mineral yang
+                        terpisah dengan warna atau tekstur berbeda. Lapisan-lapisan ini sangat jelas terlihat dengan
+                        mata telanjang dan memberikan batuan penampilan bertekstur.</p>
+            </div>
         </div>
-        <div class="feature-container">
-          <button>Orbikulasi</button>
-          <button>Sktruktur Kristal</button>
-          <button>Kombinasi Warna</button>
-          <button>Lapisan Konsentris</button>
-          <button>Perbedaan Kilap</button>
-        </div>
-        <div class="description-container">
-          <h2 id="feature-title">Lapisan Konsentris</h1>
-          <p id="feature-description">Setiap orbikula biasanya dikelilingi oleh lapisan-lapisan mineral yang terpisah dengan warna atau tekstur berbeda. Lapisan-lapisan ini sangat jelas terlihat dengan mata telanjang dan memberikan batuan penampilan bertekstur.</p>
-        </div>
-      </div>
-
-      <!--  -->
 
     </div>
 
     <script src="index.js"></script>
-    <script>
-      // const viewer = document.getElementById("stoneViewer");
-      const infoBox = document.getElementById("info-box");
 
-      // Add click event listeners to cards to show information and rotate the model
-      document.querySelectorAll(".card").forEach((card) => {
-        card.addEventListener("click", () => {
-          const title = card.getAttribute("data-title");
-          const description = card.getAttribute("data-description");
-          const orbit = card.getAttribute("data-orbit");
-          const boxClass = card.getAttribute("data-box-class");
+</body>
 
-          // Ensure title and description are logged (for debugging)
-          console.log("Title: ", title);
-          console.log("Description: ", description);
-
-          // Update the info box content and apply the style variation
-          infoBox.innerHTML = `<h3>${title}</h3><p>${description}</p>`;
-          infoBox.className = boxClass;
-          infoBox.style.display = "block";
-          setTimeout(() => {
-            infoBox.style.opacity = 1; // Fade in the info box
-          }, 10);
-
-          // Rotate the model slightly to bring attention to the part
-          viewer.cameraOrbit = orbit; // Move camera to a different angle for visual focus
-        });
-      });
-
-      // Function to hide the info box after some time (5 seconds)
-      function hideInfoBox() {
-        setTimeout(() => {
-          infoBox.style.opacity = 0; // Fade out
-          setTimeout(() => {
-            infoBox.style.display = "none"; // Hide after fade out
-          }, 500); // Match fade out duration
-        }, 5000); // 5 seconds display time
-      }
-
-      // Trigger hiding the info box after user clicks on any card
-      document.querySelectorAll(".card").forEach((card) => {
-        card.addEventListener("click", hideInfoBox);
-      });
-    </script>
-  </body>
 </html>

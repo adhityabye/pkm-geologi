@@ -1,47 +1,3 @@
-// const infoBox = document.getElementById("info-box");
-
-// // Add click event listeners to cards to show information and rotate the model
-// document.querySelectorAll(".card").forEach((card) => {
-//   card.addEventListener("click", () => {
-//     const title = card.getAttribute("data-title");
-//     const description = card.getAttribute("data-description");
-//     const orbit = card.getAttribute("data-orbit");
-//     const boxClass = card.getAttribute("data-box-class");
-
-//     // Ensure title and description are logged (for debugging)
-//     console.log("Title: ", title);
-//     console.log("Description: ", description);
-
-//     // Update the info box content and apply the style variation
-//     infoBox.innerHTML = `<h3>${title}</h3><p>${description}</p>`;
-//     infoBox.className = boxClass;
-//     infoBox.style.display = "block";
-//     setTimeout(() => {
-//       infoBox.style.opacity = 1; // Fade in the info box
-//     }, 10);
-
-//     // Rotate the model slightly to bring attention to the part
-//     viewer.cameraOrbit = orbit; // Move camera to a different angle for visual focus
-//   });
-// });
-
-// // Function to hide the info box after some time (5 seconds)
-// function hideInfoBox() {
-//   setTimeout(() => {
-//     infoBox.style.opacity = 0; // Fade out
-//     setTimeout(() => {
-//       infoBox.style.display = "none"; // Hide after fade out
-//     }, 500); // Match fade out duration
-//   }, 5000); // 5 seconds display time
-// }
-
-// // Trigger hiding the info box after user clicks on any card
-// document.querySelectorAll(".card").forEach((card) => {
-//   card.addEventListener("click", hideInfoBox);
-// });
-
-
-
 class StoneViewer {
 
     constructor(stoneData) {
@@ -59,6 +15,12 @@ class StoneViewer {
 
         // init
         this.setStone(this.selectedIndex)
+
+        // stone feature overlay
+        this.overlay = document.getElementById('overlay')
+
+        this.viewer.addEventListener('camera-change', this.updateOverlay(10,10,20))
+
     }
 
     setStone(index) {
@@ -98,6 +60,19 @@ class StoneViewer {
     prev() {
         this.selectedIndex = (this.selectedIndex - 1 + this.stoneData.length) % this.stoneData.length
         this.setStone(this.selectedIndex)
+    }
+
+    updateOverlay(x,y,z) {
+        // TODO: code
+        
+        // const rect = this.viewer.getBoundingClientRect()
+        // const coord = this.viewer.positionAndNormalFromPoint(x, y, z);
+
+        // const left = (coord[0] - rect.left) / rect.width * window.innerWidth;
+        // const top  = (coord[1] - rect.top) / rect.height * window.innerHeight;
+    
+        // overlay.style.left = `${x}px`;
+        // overlay.style.top = `${y}px`;
     }
 
 
