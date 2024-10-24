@@ -2,7 +2,7 @@ class StoneViewer {
 
     constructor(stoneData) {
         // state
-        this.selectedIndex = 0
+        this.selectedIndex = 1
 
         // data
         this.stoneData = stoneData
@@ -19,20 +19,18 @@ class StoneViewer {
         // stone feature overlay
         this.overlay = document.getElementById('overlay')
 
-        this.viewer.addEventListener('camera-change', this.updateOverlay(10,10,20))
+        this.viewer.addEventListener('load', () => {
+            // this.viewer.addEventListener('camera-change', () => this.updateOverlay(10,10,10))
+        })
 
     }
 
     setStone(index) {
         const selectedStone = this.stoneData[index]
-        console.log(selectedStone)
-        console.log(index)
 
         // update viewer
         this.viewer.setAttribute('src', selectedStone.fileSrc)
-        for (const pos in selectedStone.initialPosition) {
-            this.viewer[pos] = selectedStone.initialPosition[pos]
-        }
+        this._setCamera(selectedStone.camera)
 
         // update stone description
         this.stoneTitle.innerHTML = selectedStone.name
@@ -44,9 +42,22 @@ class StoneViewer {
             const newFeatureButton = document.createElement('button')
             newFeatureButton.innerHTML = feature.name
             newFeatureButton.addEventListener('click', event => {
+
+                // if theres another overlay displayed, just hide
+                this.hideOverlay()
+
                 this.featureTitle.innerHTML = feature.name
                 this.featureDescription.innerHTML = feature.description
-                this.viewer.cameraOrbit = feature.cameraOrbit
+                
+                this._setCamera(feature.camera)
+                this.displayOverlay()
+
+                // disable auto-rotate temporarily
+                this.viewer.removeAttribute('auto-rotate')
+                setTimeout(() => {
+                    this.viewer.setAttribute('auto-rotate', '')
+                    this.hideOverlay()
+                }, 700)
             })
             this.featureContainer.appendChild(newFeatureButton)
         })
@@ -62,117 +73,49 @@ class StoneViewer {
         this.setStone(this.selectedIndex)
     }
 
-    updateOverlay(x,y,z) {
-        // TODO: code
-        
-        // const rect = this.viewer.getBoundingClientRect()
-        // const coord = this.viewer.positionAndNormalFromPoint(x, y, z);
+    _setCamera(cameraInfo) {
+        for (const info in cameraInfo) {
+            this.viewer[info] = cameraInfo[info]
+        }
+    }
 
-        // const left = (coord[0] - rect.left) / rect.width * window.innerWidth;
-        // const top  = (coord[1] - rect.top) / rect.height * window.innerHeight;
-    
-        // overlay.style.left = `${x}px`;
-        // overlay.style.top = `${y}px`;
+    displayOverlay() {
+        if (!this.overlay.classList.contains('hidden')) return
+
+        this.overlay.classList.remove('hidden', 'zoom-out');
+        this.overlay.classList.add('zoom-in');
+        this.overlay.style.display = 'block';
+    }
+
+    hideOverlay() {
+        if (this.overlay.classList.contains('hidden')) return
+
+        this.overlay.classList.remove('zoom-in');
+        this.overlay.classList.add('zoom-out');
+        
+        this.overlay.addEventListener('animationend', () => {
+            if (this.overlay.classList.contains('zoom-out')) {
+                this.overlay.style.display = 'none';
+                this.overlay.classList.add('hidden');
+            }
+        }, { once: true });
+    }
+
+    // ============== FOR DEVELOPMENT PURPOSES ==============
+    _getCameraInfo() {
+        return {
+            cameraOrbit: this.viewer.getCameraOrbit().toString(),
+            cameraTarget: this.viewer.getCameraTarget().toString(),
+            fieldOfView: this.viewer.getFieldOfView().toString() + 'deg'
+        }
     }
 
 
 }
 
-
-const StoneData = [
-    {
-        name: 'Granit Orbicular',
-        fileSrc: 'assets/Granit_Orbicular.glb',
-        initialPosition: {
-            cameraOrbit: "0deg 75deg 50m",
-            minCameraOrbit: "auto auto 40m",
-            maxCameraOrbit: "auto auto 50m"
-        },
-        description: 'Deskripsi Granit orbicular merupakan salah satu jenis batuan yang sangat langka dan unik, terkenal karena pola melingkar atau orbikulasi yang menarik. Diperkirakan bahwa orbikula terbentuk dari proses pendinginan magma yang tidak biasa, di mana ada kristalisasi berulang yang menghasilkan lapisan konsentris. Karena pembentukannya yang jarang terjadi, batuan ini dianggap eksotis dan sangat diminati kolektor dan geolog.',
-        features: [
-            {
-                name: "Orbikulasi",
-                description: "Fitur paling menonjol dari granit ini adalah formasi orbikularnya, yaitu pola melingkar atau bulat yang terbentuk di dalam batuan. Orbikula ini terbentuk dari pusat, biasanya kristal, yang dikelilingi oleh lapisan-lapisan konsentris dari mineral berbeda. Pola ini menciptakan tampilan yang sangat artistik dan memikat secara visual.",
-                cameraOrbit: "90deg 80deg 20m"
-            },
-            {
-                name: "Lapisan Konsentris",
-                description: "Orbikula dikelilingi oleh lapisan-lapisan mineral yang terpisah dengan warna atau tekstur berbeda. Lapisan-lapisan ini jelas terlihat dengan mata telanjang dan memberikan tampilan bertekstur pada batu.",
-                cameraOrbit: "120deg 70deg 15m"
-            },
-            {
-                name: "Kontras Warna",
-                description: "Kontras yang jelas antara orbikula dan matriksnya, sering dengan orbikula yang memiliki warna berbeda dari batuan dasar, menciptakan tampilan visual yang menarik.",
-                cameraOrbit: "60deg 85deg 25m"
-            },
-            {
-                name: "Kristal Kasar atau Halus",
-                description: "Orbikula mungkin memiliki tekstur kristal kasar yang berbeda dari matriks halus di sekitarnya. Kristal-kristal dalam orbikula sering terlihat lebih besar dan jelas dengan mata telanjang.",
-                cameraOrbit: "75deg 90deg 18m"
-            },
-            {
-                name: "Ukuran Orbikula yang Bervariasi",
-                description: "Ukuran orbikula dapat bervariasi dalam satu spesimen, dengan orbikula kecil hingga besar, memberikan variasi visual yang menarik.",
-                cameraOrbit: "100deg 60deg 22m"
-            },
-            {
-                name: "Perbedaan Kilap",
-                description: "Orbikula dan matriksnya mungkin memiliki kilap yang berbeda. Orbikula mungkin lebih mengkilap atau lebih kusam dibandingkan dengan matriks sekitarnya.",
-                cameraOrbit: "150deg 75deg 19m"
-            },
-            {
-                name: "Pola Penataan Orbikula",
-                description: "Orbikula dapat terdistribusi secara acak atau menunjukkan pola tertentu di dalam batuan, yang menambah karakter visual batuan tersebut.",
-                cameraOrbit: "45deg 85deg 17m"
-            },
-            {
-                name: "Retakan atau Rekahan Alami",
-                description: "Beberapa granit orbicular menunjukkan retakan alami di sekitar orbikula yang terbentuk selama proses pendinginan atau setelahnya.",
-                cameraOrbit: "110deg 50deg 21m"
-            }
-        ]
-    },
-    {
-        name: 'Konglomerat Polimik',
-        fileSrc: 'assets/Konglomerat_Polimik.glb',
-        initialPosition: {
-            cameraOrbit: "0deg 75deg 150m",
-            minCameraOrbit: "auto auto 90m",
-            maxCameraOrbit: "auto auto 200m"
-        },
-        description: "Konglomerat Polimik adalah batuan sedimen yang terdiri dari pecahan-pecahan batuan yang berbeda (fragmen) yang dibungkus dalam matriks yang lebih halus. Fragmen-fragmen ini memiliki berbagai jenis dan ukuran, biasanya terbentuk dari berbagai macam mineral atau jenis batuan yang berbeda, sehingga menciptakan penampilan heterogen. Karena terdiri dari beragam batuan, konglomerat polimik sering kali menunjukkan berbagai warna, pola, dan tekstur yang dapat diamati langsung.",
-        features: [
-            {
-                name: "Fragmen Beragam",
-                description: "Konglomerat Polimik terdiri dari fragmen-fragmen yang berasal dari berbagai batuan, seperti kuarsa, granit, basalt, dan lainnya. Fragmen-fragmen ini berukuran lebih dari 2 mm dan disemen oleh matriks yang lebih halus.",
-                cameraOrbit: "80deg 70deg 22m"
-            },
-            {
-                name: "Matriks Pengikat",
-                description: "Fragmen-fragmen batu yang besar dikelilingi oleh matriks yang lebih halus, sering kali terdiri dari pasir, lempung, atau material sedimen lainnya yang berfungsi sebagai pengikat.",
-                cameraOrbit: "100deg 80deg 18m"
-            },
-            {
-                name: "Variasi Warna dan Tekstur",
-                description: "Konglomerat Polimik memiliki tampilan yang sangat bervariasi dalam hal warna dan tekstur, bergantung pada jenis batuan yang menyusun fragmen dan matriksnya.",
-                cameraOrbit: "55deg 90deg 25m"
-            },
-            {
-                name: "Kekasaran Permukaan",
-                description: "Permukaan konglomerat polimik biasanya kasar karena fragmen-fragmen besar yang menonjol dari matriks. Fragmen-fragmen ini dapat dirasakan dan dilihat dengan mudah.",
-                cameraOrbit: "120deg 65deg 20m"
-            },
-            {
-                name: "Fragmen Sudut dan Bulat",
-                description: "Fragmen-fragmen dalam konglomerat polimik dapat memiliki bentuk sudut atau bulat, tergantung pada seberapa jauh dan lama transportasi fragmen-fragmen tersebut sebelum terdeposit.",
-                cameraOrbit: "70deg 85deg 19m"
-            }
-        ]
-    }
-
-]
+// imports const StoneData from StoneData.js
  
-
+const a = document.getElementById('stoneViewer')
 const stoneViewer = new StoneViewer(StoneData)
 
 const nextButton = document.getElementById("next-stone")
