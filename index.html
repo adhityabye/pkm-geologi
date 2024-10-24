@@ -14,16 +14,24 @@
 </head>
 
 <body>
-    <div id="overlay" style="position: absolute; top: 0; left: 0; color: red;">
-        <!-- penunjuk batu -->
-    </div>
+
     <div id="container">
 
         <div id="viewer-container">
+            <!-- overlay -->
+            <div id="overlay" class="hidden" style="top: calc(50% - 100px); left: calc(50% - 100px);">
+                <svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"> 
+                    <circle cx="50" cy="50" r="46" stroke="#FFFF00" stroke-width="8"/>
+                </svg>
+            </div>
+
             <!-- Model Viewer -->
-            <model-viewer id="stoneViewer" src="assets/Granit_Orbicular.glb" camera-controls auto-rotate ar
+            <model-viewer id="stoneViewer" src="assets/Konglomerat_Polimik.glb" 
+                camera-controls ar auto-rotate
+                interaction-prompt="none"
                 shadow-intensity="1" environment-image="neutral" alt="3D model of Granit Orbicular"
-                field-of-view="45deg" camera-orbit="0deg 75deg 50m" min-camera-orbit="auto auto 40m"
+                field-of-view="45deg" 
+                camera-orbit="0deg 75deg 50m" min-camera-orbit="auto auto 40m"
                 max-camera-orbit="auto auto 50m" style="width: 100vw; height: 100vh">
             </model-viewer>
 
@@ -64,6 +72,7 @@
 
     </div>
 
+    <script src="StoneData.js"></script>
     <script src="index.js"></script>
 
 </body>
