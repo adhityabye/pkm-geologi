@@ -194,20 +194,12 @@ model-viewer {
   /* You can change the color #3498db to any color you'd like */
 }
 
-#overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2; /* Higher than the model viewer to be visible */
-}
 
 /* Initial hidden state */
-.hidden {
+.overlay {
+  display: flex;
+}
+.overlay.hidden {
   display: none;
 }
 
@@ -273,10 +265,11 @@ model-viewer {
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
+
 
 .change-stone {
   position: absolute;
